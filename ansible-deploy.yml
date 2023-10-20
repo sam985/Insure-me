@@ -21,7 +21,7 @@
     command: docker rm -f insure_me
 
   - name: Removing docker image
-    command: docker rmi sam985/insure-me:1.0
+    command: docker rmi -f  sam985/insure-me:1.0
       
   - name: Deploying docker container
     command: docker run -itd --name=insure_me  -p 8081:8081 sam985/insure-me:1.0
