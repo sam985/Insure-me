@@ -14,8 +14,10 @@
     become: yes
     become_user: root
   
-  - name: Stop the Docker container if it's running
+  - name: Stopping the Docker container 
     command: docker stop insure_me
+  
+  - name: Removing the Docker container
     command: docker rm -f insure_me
       
   - name: Deploying docker container
