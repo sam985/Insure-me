@@ -13,6 +13,15 @@
     command: sudo systemctl start docker
     become: yes
     become_user: root
+  
+  - name: Check if the Docker container is running
+    shell: docker ps -q -f name=insure_me
+    register: container_id
+    ignore_errors: yes
 
-  - name: Deploying docker container
-    command: docker run -itd -p 8081:8081 sam985/insure-me:1.0
+ - name: Stop the Docker container if it's running
+   command: docker stop {{ container_id.stdout }}
+   when: container_id.stdout | length > 0
+  
+ - name: Deploying docker container
+   command: docker run -itd name=insure_me  -p 8081:8081 sam985/insure-me:1.0
